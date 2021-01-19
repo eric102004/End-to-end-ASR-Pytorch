@@ -36,19 +36,25 @@ def create_dataset(tokenizer, ascending, name, path, bucketing, batch_size,
             dv_set = []
             for ds in dev_split:
                 dev_dir = ''
+                '''
                 if ds[0].lower() == 'librispeech':
                     dev_dir = join(path, 'LibriSpeech')
                     from corpus.preprocess_librispeech import LibriDataset as DevDataset
                 else:
                     raise NotImplementedError(ds[0])
+                '''
+                dev_dir = path
+                from corpus.preprocess_librispeech import LibriDataset as DevDataset
                 dv_set.append(DevDataset(dev_dir,ds,tokenizer, 1))
             dv_len = sum([len(s) for s in dv_set])
-        
+        ''' 
         if path[-4:].lower() != name[-4:].lower():
             tr_dir = join(path, name)
         else:
             tr_dir = path
-        
+        '''
+        tr_dir = path
+        print(tr_dir)
         tr_set = Dataset(tr_dir,train_split,tokenizer, bucket_size, 
                     ascending=ascending, 
                     read_audio=read_audio)
@@ -60,10 +66,13 @@ def create_dataset(tokenizer, ascending, name, path, bucketing, batch_size,
     else:
         # Testing model
         mode = 'test'
+        '''
         if path[-4:].lower() != name[-4:].lower():
             tt_dir = join(path, name)
         else:
             tt_dir = path
+        '''
+        tt_dir = path
         
         bucket_size = 1
         if type(dev_split[0]) is list: dev_split = dev_split[0]

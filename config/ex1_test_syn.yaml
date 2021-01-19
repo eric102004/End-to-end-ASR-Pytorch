@@ -1,0 +1,22 @@
+data:
+  corpus:                                 # Pass to dataloader
+    # The following depends on corpus
+    path: '../LibriSpeech/train-clean-100/1069/'
+    name: 'LibriSpeech'
+    dev_split: ['133699']
+    test_split: ['133709']
+    bucketing: False
+    batch_size: 1
+src:
+  config: 'config/ex1_syn.yaml'
+  ckpt: 'ckpt/ex1_syn_sd0/last_att_1241.pth'
+
+decode:
+  ctc_weight: 0
+  beam_size: 1
+  # vocab_candidate: 12
+  min_len_ratio: 0.01
+  max_len_ratio: 0.25
+  lm_config: '/data/storage/harry/End-to-end-ASR-Pytorch/config/librispeech_lm.yaml'
+  lm_path: '/data/storage/harry/E2E_ASR/ckpt/RNNLM_LS100_TEST_0/best_ppx.pth'
+  lm_weight: 0.3

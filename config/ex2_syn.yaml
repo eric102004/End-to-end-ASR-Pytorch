@@ -1,10 +1,10 @@
 data:
   corpus:                                 # Pass to dataloader
     # The following depends on corpus
-    path: '/data/storage/harry'
+    path: '../LibriSpeech/train-clean-100/1069'                      #change path 3
     name: 'LibriSpeech'
-    train_split: ['LibriSpeech', 'train-clean-100', 'train']
-    dev_split: [['LibriSpeech', 'dev-clean', 'dev']]
+    train_split: ['133699']            #change path  1
+    dev_split: [['133709']]           #chnage path   2
     bucketing: True
     batch_size: 16
 
@@ -25,8 +25,8 @@ data:
     vocab_file: 'corpus/librispeech_char.txt'
 
 hparas:                                   # Experiment hyper-parameters
-  valid_step: 5000
-  max_step: 200000
+  valid_step: 10                         #change from 5000 to 100  (4)
+  max_step: 5500                         #change from 200k to 5k (5)
   tf_start: 1.0
   tf_end: 1.0
   tf_step: 150000
@@ -64,3 +64,6 @@ model:                                    # Model architecture
     dim: 300
     layer: 1
     dropout: 0
+
+src:
+  ckpt: 'ckpt/ex1_syn_sd0/last_att_1241.pth'         #specify the path of pretrain model

@@ -126,3 +126,8 @@ run.sh
 *.swp
 
 *.DS_store
+
+
+# some folfer
+ckpt/
+result/

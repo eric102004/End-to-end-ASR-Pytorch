@@ -3,6 +3,7 @@ from pathlib import Path
 from os.path import join,getsize
 from joblib import Parallel, delayed
 from torch.utils.data import Dataset
+import os
 
 OFFICIAL_TXT_SRC  = ['librispeech-lm-norm.txt']  # Additional (official) text src provided
 REMOVE_TOP_N_TXT  = 5000000                      # Remove longest N sentence in librispeech-lm-norm.txt
@@ -30,8 +31,13 @@ class LibriDataset(Dataset):
         # List all wave files
         file_list = []
         for s in split:
-            if s[0] == 't' or s[0] == 'd':
-                file_list += list(Path(join(path,s)).rglob("*.flac"))
+            #if s[0] == 't' or s[0] == 'd':
+            print('searching path:', join(path,s))
+            if self.path[-5] == 'f':
+                file_list += list(Path(join(path,s)).rglob("*.wav"))        #remove if
+            else:
+                file_list += list(Path(join(path,s)).rglob("*.flac"))        #remove if
+            print('file_list:',file_list)
         assert len(file_list)>0, "No data found @ {}".format(path)
         
         # Read text
